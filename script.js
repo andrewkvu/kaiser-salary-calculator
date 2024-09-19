@@ -445,9 +445,9 @@ function getSalary() {
     const annualSalary = (shiftDiffHourlyRate) * hours * 52;
 
     document.getElementById("output").innerHTML = `
-        <p>The base hourly rate for ${jobTitle.toUpperCase()} in ${year} with ${yearsOfExperience} years of experience is: $${baseHourlySalary} -> $${baseHourlySalary.toFixed(2)}</p>
-        <p>The shift difference for ${jobTitle.toUpperCase()} in ${year} with ${yearsOfExperience} years of experience on the ${shift.toUpperCase()} shift is: $${shiftDiff} -> $${shiftDiff.toFixed(2)}</p>
-        <p>The total hourly rate for ${jobTitle.toUpperCase()} in ${year} with ${yearsOfExperience} years of experience on the ${shift.toUpperCase()} shift is: $${shiftDiffHourlyRate} -> $${shiftDiffHourlyRate.toFixed(2)}</p>
-        <p>The estimated annual salary for ${jobTitle.toUpperCase()} in ${year} with ${yearsOfExperience} years of experience on the ${shift.toUpperCase()} shift is: $${annualSalary.toFixed(2)}</p>
+        <p>The base hourly rate for ${jobTitle.toUpperCase()} in ${year} with ${yearsOfExperience} years of experience is: $${baseHourlySalary} -> <strong>$${baseHourlySalary.toFixed(2)}</strong></p>
+        <p>The shift difference for ${jobTitle.toUpperCase()} in ${year} with ${yearsOfExperience} years of experience on the ${shift.toUpperCase()} shift is: $${shiftDiff} -> <strong>$${shiftDiff.toFixed(2)}</strong></p>
+        <p>The total hourly rate for ${jobTitle.toUpperCase()} in ${year} with ${yearsOfExperience} years of experience on the ${shift.toUpperCase()} shift is: $${shiftDiffHourlyRate} -> <strong>$${shiftDiffHourlyRate.toFixed(2)}</strong></p>
+        <p>The estimated annual salary for ${jobTitle.toUpperCase()} in ${year} with ${yearsOfExperience} years of experience working ${hours} HOURS on the ${shift.toUpperCase()} shift is: <strong>$${annualSalary.toFixed(2)}</strong></p>
     `;
 }
