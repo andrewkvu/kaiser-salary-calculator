@@ -379,82 +379,15 @@ const medicalLabTechnician = {
     },
 };
 
-// event listeners for changing visibility when choosing between start date/years of experience
-document.getElementById('start-date-radio').addEventListener('change', function() {
-    if (this.checked) {
-        document.getElementById('start-date-container').style.visibility = 'visible';
-        document.getElementById('start-date-container').style.display = 'flex';
-        document.getElementById('years-experience-container').style.display = 'none';
-    }
-});
-
-document.getElementById('years-experience-radio').addEventListener('change', function() {
-    if (this.checked) {
-        document.getElementById('start-date-container').style.visibility = 'hidden';
-        document.getElementById('start-date-container').style.display = 'none';
-        document.getElementById('years-experience-container').style.display = 'block';
-    }
-});
-
-
-function calculateYearsOfExperience() {
-    const startDateValue = document.getElementById('start-date').value;
-    const year = document.getElementById('year').value;
-    const internshipCheckbox = document.getElementById('internship-experience').checked;
-
-    if (startDateValue) {
-        const startDate = new Date(startDateValue);
-        const currentDate = new Date();
-        const adjustedDate = new Date(year, currentDate.getMonth(), currentDate.getDate());
-
-        let yearsOfExperience = adjustedDate.getFullYear() + 1 - startDate.getFullYear();
-
-        // If the current month is before the start month, or it's the same month but the current day is before the start day, subtract 1 year
-        const monthsDiff = adjustedDate.getMonth() - startDate.getMonth();
-        const daysDiff = adjustedDate.getDate() - startDate.getDate();
-        if (monthsDiff < 0 || (monthsDiff === 0 && daysDiff < 0)) {
-            yearsOfExperience -= 1;
-        }
-
-        // If the checkbox is checked, add 1 year for internship experience
-        if (internshipCheckbox) {
-            yearsOfExperience += 1;
-        }
-
-        return yearsOfExperience;
-    } else {
-        return 0; // Default if no start date is provided
-    }
-}
-
-function formatDate(dateString) {
-    const date = new Date(dateString + 'T00:00:00'); // Append 'T00:00:00' to ensure it's treated as local time
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return date.toLocaleDateString(undefined, options);
-}
 
 function getSalary() {
     const jobTitle = document.getElementById("job-title").value.toLowerCase();
     const year = parseInt(document.getElementById("year").value);
     const shift = document.getElementById("shift").value.toLowerCase();
+    const yearsOfExperience = parseInt(
+        document.getElementById("years-of-experience").value
+    );
     const hours = parseInt(document.getElementById("hours").value);
-
-    let yearsOfExperience = 0;
-    let experienceDescription = "";
-
-    // check between years of experience and start date radio buttons
-    // change the yearsOfExperience and experience description based on either choice
-    if (document.getElementById("years-experience-radio").checked) {
-        // Use manually inputted years of experience
-        yearsOfExperience = parseInt(document.getElementById("years-of-experience").value, 10) || 0;
-        experienceDescription = `with ${yearsOfExperience} years of experience`;
-    } else if (document.getElementById("start-date-radio").checked) {
-        // Calculate years of experience based on start date
-        yearsOfExperience = calculateYearsOfExperience();
-        const startDateValue = document.getElementById('start-date').value;
-        const formattedDate = formatDate(startDateValue);
-        experienceDescription = `starting on ${formattedDate} with ${yearsOfExperience} years of experience`;
-    }
 
     const yearElement = document.getElementById('year');
     const contractYearString = yearElement.options[yearElement.selectedIndex].text;
@@ -517,9 +450,9 @@ function getSalary() {
     const annualSalary = (shiftDiffHourlyRate) * hours * 52;
 
     document.getElementById("output").innerHTML = `
-        <p>The base hourly rate for ${jobTitle.toUpperCase()} in contract year ${contractYearString} ${experienceDescription} is: <strong>$${baseHourlySalary.toFixed(4)}</strong></p>
+        <p>The base hourly rate for ${jobTitle.toUpperCase()} in contract year ${contractYearString} with ${yearsOfExperience} years of experience is: <strong>$${baseHourlySalary.toFixed(4)}</strong></p>
         <p>The shift difference for ${jobTitle.toUpperCase()} in contract year ${contractYearString} on the ${shift.toUpperCase()} shift is: <strong>$${shiftDiff}</strong></p>
-        <p>The total hourly rate for ${jobTitle.toUpperCase()} in contract year ${contractYearString} ${experienceDescription} on the ${shift.toUpperCase()} shift is: <strong>$${shiftDiffHourlyRate.toFixed(4)}</strong></p>
-        <p>The estimated annual salary for ${jobTitle.toUpperCase()} in contract year ${contractYearString} ${experienceDescription} working ${hours} HOURS on the ${shift.toUpperCase()} shift is: <strong>$${annualSalary.toFixed(2)}</strong></p>
+        <p>The total hourly rate for ${jobTitle.toUpperCase()} in contract year ${contractYearString} with ${yearsOfExperience} years of experience on the ${shift.toUpperCase()} shift is: <strong>$${shiftDiffHourlyRate.toFixed(4)}</strong></p>
+        <p>The estimated annual salary for ${jobTitle.toUpperCase()} in contract year ${contractYearString} with ${yearsOfExperience} years of experience working ${hours} HOURS on the ${shift.toUpperCase()} shift is: <strong>$${annualSalary.toFixed(2)}</strong></p>
     `;
 }

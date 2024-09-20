@@ -113,34 +113,10 @@
             <option value="night">Night</option>
         </select>
 
-        <div class="experience-choice">
-            <label for="start-date-radio">Enter Start Date</label>
-            <input type="radio" id="start-date-radio" name="experience-input" value="start-date" checked>
-            <label for="years-experience-radio">Enter Years of Experience</label>
-            <input type="radio" id="years-experience-radio" name="experience-input" value="years">
-        </div>
-
-        <!-- Years of experience input (hidden by default) -->
-        <div id="years-experience-container" style="display: none;">
+        <div id="years-experience-container">
             <label for="years-of-experience">Years of Experience:</label>
             <input type="number" id="years-of-experience" placeholder="e.g., 0">
         </div>
-
-        <!-- Start date input and checkbox side by side -->
-        <div id="start-date-container" style="display: flex; align-items: center;">
-            <div style="flex: 1; max-width: 50%;">
-                <label for="start-date">Start Date:</label>
-                <input type="date" id="start-date">
-            </div>
-            
-            <!-- Smaller checkbox label and input next to the start date -->
-            <div style="flex: 0; margin-left: 5px;">
-                <input type="checkbox" id="internship-experience" style="margin-right: 5px;">
-                <label for="internship-experience" style="font-size: 0.8em;">+1 year (Internship)</label>
-            </div>
-        </div>
-
-
 
         <label for="hours">Hours Worked Per Week:</label>
         <input type="number" id="hours" placeholder="e.g., 40">
