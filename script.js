@@ -399,17 +399,19 @@ document.getElementById('years-experience-radio').addEventListener('change', fun
 
 function calculateYearsOfExperience() {
     const startDateValue = document.getElementById('start-date').value;
+    const year = document.getElementById('year').value;
     const internshipCheckbox = document.getElementById('internship-experience').checked;
 
     if (startDateValue) {
         const startDate = new Date(startDateValue);
         const currentDate = new Date();
+        const adjustedDate = new Date(year, currentDate.getMonth(), currentDate.getDate());
 
-        let yearsOfExperience = currentDate.getFullYear() - startDate.getFullYear();
+        let yearsOfExperience = adjustedDate.getFullYear() + 1 - startDate.getFullYear();
 
         // If the current month is before the start month, or it's the same month but the current day is before the start day, subtract 1 year
-        const monthsDiff = currentDate.getMonth() - startDate.getMonth();
-        const daysDiff = currentDate.getDate() - startDate.getDate();
+        const monthsDiff = adjustedDate.getMonth() - startDate.getMonth();
+        const daysDiff = adjustedDate.getDate() - startDate.getDate();
         if (monthsDiff < 0 || (monthsDiff === 0 && daysDiff < 0)) {
             yearsOfExperience -= 1;
         }
